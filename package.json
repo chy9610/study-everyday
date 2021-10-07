@@ -1,0 +1,8 @@
+{
+  "name": "Study-Everyday",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:chy9610/study-everyday.git",
+  "author": "陈化宇 <1171193188@qq.com>",
+  "license": "MIT"
+}
