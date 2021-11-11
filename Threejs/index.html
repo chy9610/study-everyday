@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script src="threejs/three.js"></script>
+    <script>
+      // 为了真正能够让你的场景借助three.js来进行显示，我们需要以下几个对象：场景、相机和渲染器，这样我们就能透过摄像机渲染出场景。
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(
+        75,
+        window.innerWidth / window.innerHeight,
+        0.1,
+        1000
+      );
+
+      const renderer = new THREE.WebGLRenderer();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      document.body.appendChild(renderer.domElement);
+
+      // 添加立方体
+      // 要创建一个立方体，我们需要一个BoxGeometry（立方体）对象.
+      // 这个对象包含了一个立方体中所有的顶点（vertices）和面（faces）
+      const geometry = new THREE.BoxGeometry();
+      // MeshBasicMaterial（材质），只能设置16进制（hex colos）
+      const material = new THREE.MeshBasicMaterial({ color: 0x808080 });
+      const cube = new THREE.Mesh(geometry, material);
+      scene.add(cube);
+
+      camera.position.z = 5;
+
+      // 使用一个被叫做“渲染循环”（render loop）或者“动画循环”（animate loop）的东西
+      // 为什么我们不直接用setInterval来实现刷新的功能呢？
+      // 当然啦，我们的确可以用setInterval，但是，requestAnimationFrame有很多的优点。
+      // 最重要的一点或许就是当用户切换到其它的标签页时，它会暂停，因此不会浪费用户宝贵的处理器资源，也不会损耗电池的使用寿命。
+      function animate() {
+        requestAnimationFrame(animate);
+        // 这段代码每帧都会执行（正常情况下是60次/秒）
+        cube.rotation.x += 0.01;
+        cube.rotation.y += 0.01;
+        renderer.render(scene, camera);
+      }
+      animate();
+    </script>
+  </body>
+</html>
